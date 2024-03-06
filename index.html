@@ -8,35 +8,15 @@
 <body>
 <h1>Download Images</h1>
 <p>Click the button below to download the final archive:</p>
-<button onclick="downloadArchive()">Download Archive</button>
+<button onclick="redirectToDownload()">Download Archive</button>
 
 <script>
-  function downloadArchive() {
-    // Отправляем GET-запрос на сервер по URL /download
-    fetch('/download')
-            .then(response => {
-              // Проверяем статус ответа
-              if (!response.ok) {
-                throw new Error('Network response was not ok');
-              }
-              // Возвращаем текст ответа (файл архива)
-              return response.blob();
-            })
-            .then(blob => {
-              // Создаем ссылку для скачивания файла
-              const url = window.URL.createObjectURL(blob);
-              const a = document.createElement('a');
-              a.href = url;
-              a.download = 'small_images.zip';
-              document.body.appendChild(a);
-              a.click();
-              // Удаляем ссылку после скачивания файла
-              window.URL.revokeObjectURL(url);
-              document.body.removeChild(a);
-            })
-            .catch(error => {
-              console.error('There has been a problem with your fetch operation:', error);
-            });
+
+  function redirectToDownload() {
+    alert('скачивание началось, подождите секунд 20');
+
+    // Перенаправляем пользователя на страницу /download
+    window.location.href = 'http://localhost:3000/download';
   }
 </script>
 </body>
