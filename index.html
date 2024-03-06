@@ -3,48 +3,40 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Save Images</title>
+  <title>Download Images</title>
 </head>
 <body>
-<h1>Сохранение изображений</h1>
-<button onclick="saveImagesWithDelay(10)">Сохранить 10 изображений</button>
-<div id="imagesContainer"></div>
+<h1>Download Images</h1>
+<p>Click the button below to download the final archive:</p>
+<button onclick="downloadArchive()">Download Archive</button>
 
 <script>
-  function saveImage() {
-    const imageUrl = 'https://thispersondoesnotexist.com/';
-
-    fetch(imageUrl)
-            .then(response => response.blob())
-            .then(blob => {
-              const imageFolder = 'images';
-              const imageName = `image_${Date.now()}.png`;
-              const imagePath = `${imageFolder}/${imageName}`;
-
-              if (!fs.existsSync(imageFolder)) {
-                fs.mkdirSync(imageFolder);
+  function downloadArchive() {
+    // Отправляем GET-запрос на сервер по URL /download
+    fetch('/download')
+            .then(response => {
+              // Проверяем статус ответа
+              if (!response.ok) {
+                throw new Error('Network response was not ok');
               }
-
-              const imageElement = document.createElement('img');
-              imageElement.src = URL.createObjectURL(blob);
-              document.getElementById('imagesContainer').appendChild(imageElement);
-
-              console.log(`Изображение сохранено как ${imagePath}`);
+              // Возвращаем текст ответа (файл архива)
+              return response.blob();
+            })
+            .then(blob => {
+              // Создаем ссылку для скачивания файла
+              const url = window.URL.createObjectURL(blob);
+              const a = document.createElement('a');
+              a.href = url;
+              a.download = 'small_images.zip';
+              document.body.appendChild(a);
+              a.click();
+              // Удаляем ссылку после скачивания файла
+              window.URL.revokeObjectURL(url);
+              document.body.removeChild(a);
             })
             .catch(error => {
-              console.error('Произошла ошибка при загрузке изображения:', error);
+              console.error('There has been a problem with your fetch operation:', error);
             });
-  }
-
-  function saveImagesWithDelay(count) {
-    let i = 0;
-    const intervalId = setInterval(() => {
-      saveImage();
-      i++;
-      if (i === count) {
-        clearInterval(intervalId);
-      }
-    }, 800); // Задержка в 800 мс
   }
 </script>
 </body>
