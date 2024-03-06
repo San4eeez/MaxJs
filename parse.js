@@ -40,6 +40,7 @@ async function saveImagesWithDelay(count) {
         await saveImage();
         i++;
         await new Promise(resolve => setTimeout(resolve, 800)); // Задержка в 800 миллисекунд
+
     }
 }
 

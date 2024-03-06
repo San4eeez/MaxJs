@@ -16,6 +16,7 @@ app.get('/download', async (req, res) => {
 
         // Отправляем архив клиенту
         const zipFilePath = path.join(__dirname, 'small_images.zip');
+        console.log('Успех!');
         res.download(zipFilePath);
     } catch (error) {
         console.error('Ошибка при выполнении скриптов:', error);
