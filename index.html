@@ -4,16 +4,31 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Download Images</title>
+  <!-- Подключаем стили Bootstrap -->
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
-<h1>Download Images</h1>
-<p>Click the button below to download the final archive:</p>
-<button onclick="redirectToDownload()">Download Archive</button>
+<!-- Навбар с текстом "FacesGenerator" -->
+<nav class="navbar navbar-dark bg-dark">
+  <span class="navbar-brand mb-0 h1">FacesGenerator</span>
+</nav>
+
+<div class="container mt-4">
+  <!-- Блок с описанием сайта -->
+  <div class="jumbotron">
+    <h1 class="display-4">Бесплатный генератор лиц</h1>
+    <p class="lead">Этот сайт предназначен для бесплатной генерации лиц при помощи искусственного интеллекта StyleGan2.</p>
+    <hr class="my-4">
+    <p>Все люди на картинках не настоящие, и эти фотографии можно использовать в своих любых проектах.</p>
+  </div>
+
+  <!-- Кнопка скачивания -->
+  <button class="btn btn-primary" onclick="redirectToDownload()">Скачать архив</button>
+</div>
 
 <script>
-
   function redirectToDownload() {
-    alert('скачивание началось, подождите секунд 20');
+    alert('Скачивание началось, подождите 20 секунд. Нажмите ОК.');
 
     // Перенаправляем пользователя на страницу /download
     window.location.href = 'http://localhost:3000/download';
