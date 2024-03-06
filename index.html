@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Save Images</title>
+</head>
+<body>
+<h1>Сохранение изображений</h1>
+<button onclick="saveImagesWithDelay(10)">Сохранить 10 изображений</button>
+<div id="imagesContainer"></div>
+
+<script>
+  function saveImage() {
+    const imageUrl = 'https://thispersondoesnotexist.com/';
+
+    fetch(imageUrl)
+            .then(response => response.blob())
+            .then(blob => {
+              const imageFolder = 'images';
+              const imageName = `image_${Date.now()}.png`;
+              const imagePath = `${imageFolder}/${imageName}`;
+
+              if (!fs.existsSync(imageFolder)) {
+                fs.mkdirSync(imageFolder);
+              }
+
+              const imageElement = document.createElement('img');
+              imageElement.src = URL.createObjectURL(blob);
+              document.getElementById('imagesContainer').appendChild(imageElement);
+
+              console.log(`Изображение сохранено как ${imagePath}`);
+            })
+            .catch(error => {
+              console.error('Произошла ошибка при загрузке изображения:', error);
+            });
+  }
+
+  function saveImagesWithDelay(count) {
+    let i = 0;
+    const intervalId = setInterval(() => {
+      saveImage();
+      i++;
+      if (i === count) {
+        clearInterval(intervalId);
+      }
+    }, 800); // Задержка в 800 мс
+  }
+</script>
+</body>
+</html>

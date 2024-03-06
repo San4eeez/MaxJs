@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Save Images</title>
+    <script>
+        function saveImagesWithDelay(count) {
+            let i = 0;
+            const intervalId = setInterval(() => {
+                saveImage();
+                i++;
+                if (i === count) {
+                    clearInterval(intervalId);
+                }
+            }, 1000); // Задержка в 1 секунду
+        }
+
+        function saveImage() {
+            const xhr = new XMLHttpRequest();
+            xhr.open("GET", "/save-image", true);
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    const imagesContainer = document.getElementById("imagesContainer");
+                    const imageElement = document.createElement("img");
+                    imageElement.src = xhr.responseText.imagePath;
+                    imagesContainer.appendChild(imageElement);
+                }
+            };
+            xhr.send();
+        }
+    </script>
+</head>
+<body>
+<h1>Сохранение изображений</h1>
+<button onclick="saveImagesWithDelay(10)">Сохранить 10 изображений</button>
+<div id="imagesContainer"></div>
+</body>
+</html>
