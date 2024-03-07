@@ -14,12 +14,12 @@ app.use(cors());
 app.get('/download', async (req, res) => {
     try {
         // Вызываем нужные функции для создания и скачивания архива
-        await saveImagesWithDelay(10);
+        await saveImagesWithDelay(20);
         await compressImages();
         await createZipArchive();
         await new Promise(resolve => setTimeout(resolve, 5000));
-        await clearFolder('./images');
-        await clearFolder('./small_images');
+        // await clearFolder('./images');
+        // await clearFolder('./small_images');
 
         // Отправляем архив клиенту
         const zipFilePath = path.join(__dirname, 'small_images.zip');
