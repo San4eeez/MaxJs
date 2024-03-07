@@ -1,4 +1,5 @@
 const express = require('express');
+const cors = require('cors'); // Подключаем пакет cors
 const app = express();
 const path = require('path');
 const { saveImagesWithDelay } = require('./parse');
@@ -6,6 +7,8 @@ const { compressImages } = require('./min');
 const { createZipArchive } = require('./acrchive');
 const { clearFolder } = require('./clean'); // Путь к файлу, где определена функция clearFolder
 
+// Используем cors middleware
+app.use(cors());
 
 // Обработчик GET-запроса на маршрут '/download'
 app.get('/download', async (req, res) => {

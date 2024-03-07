@@ -4,8 +4,14 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Download Images</title>
-  <!-- Подключаем стили Bootstrap -->
+  <!-- Подключаем стили Bootstrap с тёмной темой -->
   <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body {
+      background-color: #343a40; /* Цвет фона */
+      color: #fff; /* Цвет текста */
+    }
+  </style>
 </head>
 <body>
 <!-- Навбар с текстом "FacesGenerator" -->
@@ -15,23 +21,56 @@
 
 <div class="container mt-4">
   <!-- Блок с описанием сайта -->
-  <div class="jumbotron">
-    <h1 class="display-4">Бесплатный генератор лиц</h1>
+  <div class="jumbotron bg-dark">
+    <h1 class="display-4">Добро пожаловать!</h1>
     <p class="lead">Этот сайт предназначен для бесплатной генерации лиц при помощи искусственного интеллекта StyleGan2.</p>
     <hr class="my-4">
     <p>Все люди на картинках не настоящие, и эти фотографии можно использовать в своих любых проектах.</p>
   </div>
 
   <!-- Кнопка скачивания -->
-  <button class="btn btn-primary" onclick="redirectToDownload()">Скачать архив</button>
+  <button class="btn btn-primary" onclick="downloadArchive()">Скачать архив</button>
+
+  <!-- Сообщение ожидания -->
+  <div id="loadingMessage" style="display: none;" class="alert alert-info mt-3" role="alert">
+    Скачивание началось. Подождите, пожалуйста...
+  </div>
 </div>
 
 <script>
-  function redirectToDownload() {
-    alert('Скачивание началось, подождите 20 секунд. Нажмите ОК.');
+  function downloadArchive() {
+    // Показываем сообщение ожидания
+    document.getElementById('loadingMessage').style.display = 'block';
 
-    // Перенаправляем пользователя на страницу /download
-    window.location.href = 'http://localhost:3000/download';
+    // Отправляем запрос на сервер для скачивания архива
+    fetch('http://localhost:3000/download')
+            .then(response => {
+              if (!response.ok) {
+                throw new Error('Ошибка скачивания архива');
+              }
+              return response.blob();
+            })
+            .then(blob => {
+              // Создаем объект URL для архива
+              const url = window.URL.createObjectURL(blob);
+              // Создаем элемент <a> для скачивания архива
+              const a = document.createElement('a');
+              a.href = url;
+              a.download = 'small_images.zip'; // Указываем имя файла для скачивания
+              document.body.appendChild(a);
+              a.click();
+              // Удаляем элемент <a> после скачивания архива
+              document.body.removeChild(a);
+
+              // Скрываем сообщение ожидания
+              document.getElementById('loadingMessage').style.display = 'none';
+            })
+            .catch(error => {
+              console.error('Ошибка скачивания архива:', error);
+              alert('Произошла ошибка при скачивании архива');
+              // Скрываем сообщение ожидания
+              document.getElementById('loadingMessage').style.display = 'none';
+            });
   }
 </script>
 </body>
