@@ -1,10 +1,7 @@
 const fs = require('fs');
 const archiver = require('archiver');
 
-const sourceDir = './small_images';
-const zipFilePath = './small_images.zip';
-
-async function createZipArchive() {
+async function createZipArchive(imagesFolderPath, excelFilePath, zipFilePath) {
     const archive = archiver('zip', { zlib: { level: 9 } });
     const output = fs.createWriteStream(zipFilePath);
 
@@ -18,7 +15,12 @@ async function createZipArchive() {
     });
 
     archive.pipe(output);
-    archive.directory(sourceDir, false);
+    archive.directory(imagesFolderPath, false);
+
+    // Добавление Excel файла в архив
+    const excelFileData = fs.readFileSync(excelFilePath);
+    archive.append(excelFileData, { name: 'data.xlsx' });
+
     archive.finalize();
 }
 

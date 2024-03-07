@@ -1,39 +1,40 @@
 const express = require('express');
-const cors = require('cors'); // Подключаем пакет cors
+const cors = require('cors');
 const app = express();
 const path = require('path');
 const { saveImagesWithDelay } = require('./parse');
 const { compressImages } = require('./min');
 const { createZipArchive } = require('./acrchive');
-const { clearFolder } = require('./clean'); // Путь к файлу, где определена функция clearFolder
+const { clearFolder } = require('./clean');
 
-// Используем cors middleware
 app.use(cors());
 
-// Обработчик GET-запроса на маршрут '/download'
+const PORT = process.env.PORT || 3000;
+
+app.listen(PORT, () => {
+    console.log(`Сервер запущен на порту ${PORT}`);
+});
+
 app.get('/download', async (req, res) => {
     try {
-        // Вызываем нужные функции для создания и скачивания архива
-        await saveImagesWithDelay(20);
+        await saveImagesWithDelay(5);
         await compressImages();
-        await createZipArchive();
-        await new Promise(resolve => setTimeout(resolve, 5000));
-        // await clearFolder('./images');
-        // await clearFolder('./small_images');
 
-        // Отправляем архив клиенту
+        // Генерация Excel файла
+        await require('./exel');
+
+        // Создание архива с добавлением Excel файла
+        await createZipArchive('./small_images', './data.xlsx', './small_images.zip');
+
+        await new Promise(resolve => setTimeout(resolve, 5000));
+        await clearFolder('./images');
+        await clearFolder('./small_images');
+
         const zipFilePath = path.join(__dirname, 'small_images.zip');
         console.log('Успех!');
         res.download(zipFilePath);
     } catch (error) {
         console.error('Ошибка при выполнении скриптов:', error);
-        // Отправляем статус ошибки 500 и сообщение об ошибке
         res.status(500).send('Произошла ошибка при обработке запроса.');
     }
-});
-
-// Указываем Express.js слушать определенный порт
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
-    console.log(`Сервер запущен на порту ${PORT}`);
 });

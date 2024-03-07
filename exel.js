@@ -56,7 +56,7 @@ fs.readdir(pathToImages, (err, files) => {
     });
 
     // Сохранить документ
-    workbook.xlsx.writeFile('image_data_with_email.xlsx')
+    workbook.xlsx.writeFile('data.xlsx')
         .then(() => {
             console.log('Excel документ успешно создан.');
         })
