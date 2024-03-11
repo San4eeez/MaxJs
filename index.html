@@ -6,12 +6,6 @@
   <title>Download Images</title>
   <!-- Подключаем стили Bootstrap с тёмной темой -->
   <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-  <style>
-    body {
-      background-color: #343a40; /* Цвет фона */
-      color: #fff; /* Цвет текста */
-    }
-  </style>
 </head>
 <body>
 <!-- Навбар с текстом "FacesGenerator" -->
@@ -21,21 +15,94 @@
 
 <div class="container mt-4">
   <!-- Блок с описанием сайта -->
-  <div class="jumbotron bg-dark">
-    <h1 class="display-4">Добро пожаловать!</h1>
+  <div class="jumbotron">
+    <h1 class="display-4">FacesGenerator</h1>
     <p class="lead">Этот сайт предназначен для бесплатной генерации лиц при помощи искусственного интеллекта StyleGan2.</p>
     <hr class="my-4">
-    <p>Все люди на картинках не настоящие, и эти фотографии можно использовать в своих любых проектах.</p>
+    <p>Все люди на картинках не настоящие, они были сгенерированны нейросетью.</p>
+    <p>Данные могут быть использованны вами в любом учебном или коммерческом проекте.</p>
   </div>
+
 
   <!-- Кнопка скачивания -->
-  <button class="btn btn-primary" onclick="downloadArchive()">Скачать архив</button>
+
+  <div class="row">
+    <div class="col-5"></div>
+    <div class="col-6">
+
+      <button class="btn btn-primary mt-4 btn-lg" onclick="downloadArchive()">Скачать архив</button>
+    </div>
+  </div>
+
 
   <!-- Сообщение ожидания -->
-  <div id="loadingMessage" style="display: none;" class="alert alert-info mt-3" role="alert">
+  <div id="loadingMessage" style="display: none;" class="alert alert-info mt-3 " role="alert">
     Скачивание началось. Подождите, пожалуйста...
   </div>
+
+  <!-- Блок с информацией о работниках -->
+  <!-- Блок с информацией о работниках -->
+  <div class="card mt-4">
+    <div class="card-body " style="background-color: #e3f2fd;">
+      <div class="row">
+        <div class="col-md-6">
+          <img src="img/data.png" width="480" height="250" alt="Работник 1">
+
+        </div>
+        <div class="col-md-6">
+          <h2 class="card-title">Генерация сотрудников</h2>
+          <p class="card-text">Любая информация о сотрудниках не является реальной.</p>
+          <p class="card-text"> Любые совпадения случайны.</p>
+          <p class="card-text"> Автоматическая генерация данных.</p>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Еще один блок с текстом и картинкой -->
+  <div class="card mt-4">
+    <div class="card-body">
+      <div class="row">
+        <div class="col-md-6 order-md-2">
+          <img src="img/1.png" height="250" width="250" alt="Работник 2">
+          <img src="img/2.png" height="250" width="250" alt="Работник 2">
+
+        </div>
+        <div class="col-md-6">
+          <h2 class="card-title">Лица</h2>
+          <p class="card-text">Все изображение сгенерированны нейросетью.</p>
+          <p class="card-text">Любые совпадения случайны.</p>
+          <p class="card-text">Мы рады предоставить вам эти данные для использования в ваших проектах.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
 </div>
+
+<!-- Подвал -->
+<footer class="footer bg-dark text-white mt-4 py-3">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6">
+        <p>Проект создан во время учебной практики</p>
+        <p>Свяжитесь с нами:</p>
+        <p>Email: <a href="workers-generator@gmail.com" class="text-white">workers-generator@gmail.com</a></p>
+      </div>
+      <div class="col-md-6">
+        <p>Подпишитесь на нашу рассылку:</p>
+        <form action="#" method="post">
+          <div class="form-group">
+            <input type="email" class="form-control" placeholder="Ваш Email" required>
+          </div>
+          <button disabled="disabled" type="submit" class="btn btn-primary">Подписаться</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</footer>
+
 
 <script>
   function downloadArchive() {
