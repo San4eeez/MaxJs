@@ -9,18 +9,22 @@ const pathToImages = 'images';
 const workbook = new ExcelJS.Workbook();
 const sheet = workbook.addWorksheet('Images');
 
-// Функция для генерации случайного имени и фамилии
+// Функция для генерации случайного имени, фамилии и отчества
 function generateRandomName() {
-    const names = ['Иван', 'Мария', 'Александр', 'Екатерина', 'Михаил', 'Анна', 'Сергей', 'Ольга', 'Дмитрий', 'Татьяна'];
-    const surnames = ['Иванов', 'Петров', 'Сидоров', 'Кузнецов', 'Смирнов', 'Попов', 'Забротский', 'Покемонов', 'Новиков', 'Козлов'];
+    const names = ['Alex', 'Alice', 'Chris', 'Emma', 'Jordan', 'Olivia', 'Taylor', 'Sophia', 'Sam', 'Madison'];
+    const surnames = ['Smith', 'Johnson', 'Williams', 'Brown', 'Jones', 'Miller', 'Davis', 'Garcia', 'Rodriguez', 'Wilson'];
+    const middleNames = ['Andrew', 'Anne', 'Benjamin', 'Carol', 'Daniel', 'Elizabeth', 'Frank', 'Grace', 'Harry', 'Irene'];
+
     const randomName = names[Math.floor(Math.random() * names.length)];
     const randomSurname = surnames[Math.floor(Math.random() * surnames.length)];
-    return `${randomName} ${randomSurname}`;
+    const randomMiddleName = middleNames[Math.floor(Math.random() * middleNames.length)];
+
+    return `${randomName} ${randomMiddleName} ${randomSurname}`;
 }
 
 // Функция для генерации случайного номера телефона
 function generateRandomPhoneNumber() {
-    const prefix = '+7';
+    const prefix = '+1';
     const randomNumber = Math.floor(1000000000 + Math.random() * 9000000000).toString(); // 10 цифр
     return prefix + randomNumber;
 }
