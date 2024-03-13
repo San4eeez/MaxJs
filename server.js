@@ -22,6 +22,7 @@ app.get('/download', async (req, res) => {
 
         // Генерация Excel файла
         await require('./exel');
+        await new Promise(resolve => setTimeout(resolve, 5000));
 
         // Создание архива с добавлением Excel файла
         await createZipArchive('./small_images', './data.xlsx', './small_images.zip');
