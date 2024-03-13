@@ -11,9 +11,9 @@ const sheet = workbook.addWorksheet('Images');
 
 // Функция для генерации случайного имени, фамилии и отчества
 function generateRandomName() {
-    const names = ['Alex', 'Alice', 'Chris', 'Emma', 'Jordan', 'Olivia', 'Taylor', 'Sophia', 'Sam', 'Madison'];
-    const surnames = ['Smith', 'Johnson', 'Williams', 'Brown', 'Jones', 'Miller', 'Davis', 'Garcia', 'Rodriguez', 'Wilson'];
-    const middleNames = ['Andrew', 'Anne', 'Benjamin', 'Carol', 'Daniel', 'Elizabeth', 'Frank', 'Grace', 'Harry', 'Irene'];
+    const names = ['Alex', 'Alice', 'Chris', 'Pokemon', 'Jordan', 'Olivia', 'Taylor', 'Sophia', 'Sam', 'Madison'];
+    const surnames = ['Smith', 'Johnson', 'Williams', 'Brown', 'Jones', 'Miller', 'Zabrotskey', 'Garcia', 'Rodriguez', 'Wilson'];
+    const middleNames = ['Andrew', 'Anne', 'Benjamin', 'Carol', 'Daniel', 'Beedrill', 'Frank', 'Grace', 'Harry', 'Irene'];
 
     const randomName = names[Math.floor(Math.random() * names.length)];
     const randomSurname = surnames[Math.floor(Math.random() * surnames.length)];

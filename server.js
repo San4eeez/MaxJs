@@ -15,6 +15,12 @@ app.listen(PORT, () => {
     console.log(`Сервер запущен на порту ${PORT}`);
 });
 
+app.use(express.static(path.join(__dirname)));
+
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, 'index.html'));
+});
+
 app.get('/download', async (req, res) => {
     try {
         await saveImagesWithDelay(5);
